@@ -1,13 +1,13 @@
 import logging
 import random
 
+from ruamel.yaml.main import YAML
 from telegram.bot import Bot
 from telegram.ext.commandhandler import CommandHandler
 from telegram.ext.filters import Filters
 from telegram.ext.messagehandler import MessageHandler
 from telegram.ext.updater import Updater
 from telegram.update import Update
-from ruamel.yaml.main import YAML
 
 logger = logging.getLogger(__name__)
 
@@ -40,20 +40,18 @@ def message_from_chat(bot: Bot, update: Update):
 def stop_handler(bot: Bot, update: Update):
     global ENABLED
     ENABLED = False
-    bot.send_message(update.effective_chat.id,
-                     text='Выключен')
-
-
-def status_handler(bot: Bot, update: Update):
-    message = 'Сейчас бот включен' if ENABLED else 'Сейчас бот выключен'
-    bot.send_message(update.effective_chat.id, message)
+    bot.send_message(update.effective_chat.id, text='Выключен')
 
 
 def start_handler(bot: Bot, update: Update):
     global ENABLED
     ENABLED = True
-    bot.send_message(update.effective_chat.id,
-                     text='Включен')
+    bot.send_message(update.effective_chat.id, text='Включен')
+
+
+def status_handler(bot: Bot, update: Update):
+    message = 'Сейчас бот включен' if ENABLED else 'Сейчас бот выключен'
+    bot.send_message(update.effective_chat.id, message)
 
 
 def error(bot, update, error):
