@@ -28,13 +28,16 @@ admins = ['nuclearthinking', 'SoberFest']
 
 
 def message_from_chat(bot: Bot, update: Update):
-    if ENABLED:
-        if update.effective_user.username in ['zmbpnd'] and (random.randint(0, 100) < 7):
-            bot.send_message(
-                chat_id=update.effective_chat.id,
-                text=random.choice(messages),
-                reply_to_message_id=update.effective_message.message_id
-            )
+    if (
+        ENABLED
+        and update.effective_user.username in ['zmbpnd']
+        and (random.randint(0, 100) < 7)
+    ):
+        bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=random.choice(messages),
+            reply_to_message_id=update.effective_message.message_id
+        )
 
 
 def stop_handler(bot: Bot, update: Update):
